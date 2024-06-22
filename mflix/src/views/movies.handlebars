@@ -1,0 +1,17 @@
+<div class="movie">
+  {{#each movies}}
+    <ul>
+      <li>
+        Título:
+        {{title}}:
+      </li>
+      <div class="poster">
+        <img src="{{poster}}" alt="" />
+      </div>
+      <span>Géneros:</span>
+      {{#each genres}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  {{/each}}
+</div>
