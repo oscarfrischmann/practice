@@ -1,14 +1,13 @@
 * {
-  color: rgb(250, 250, 250);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.main-div {
-  background-color: #f60;
-  padding: 1em;
-}
 .poster {
   width: 33%;
 }
+
 .poster img {
   width: 100%;
 }

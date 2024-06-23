@@ -1,17 +1,48 @@
-<div class="movie">
-  {{#each movies}}
-    <ul>
-      <li>
-        Título:
-        {{title}}:
-      </li>
-      <div class="poster">
-        <img src="{{poster}}" alt="" />
-      </div>
-      <span>Géneros:</span>
+<h2>Movie List</h2>
+<div class="movies d-flex flex-wrap gap-5  justify-content-center">
+
+
+  {{#each movies.docs}}
+  <div class="card bg-dark text-light" style="width: 18rem;">
+    <img src="{{poster}}" class="card-img-top" alt="Poster of the film {{title}}">
+    <div class="card-body">
+      <h5 class="card-title">{{title}}</h5>
+      <p class="card-text">{{plot}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
       {{#each genres}}
-        <li>{{this}}</li>
+      <li class="list-group-item">{{this}}</li>
       {{/each}}
     </ul>
+    <div class="card-body  align-self-stretch">
+      <a href="" class="card-link align-self-end">Ver más</a>
+    </div>
+  </div>
   {{/each}}
 </div>
+{{#if movies.hasPrevPage}}
+<button type="button" class="btn btn-primary ml-5 mt-5 mb-5" id="prevPage">Prev Page</button>
+<span id="prevPageNumber" class="d-none">{{movies.prevPage}}</span>
+{{/if}}
+{{#if movies.hasNextPage}}
+<button type="button" class="btn btn-primary mt-5 mb-5" id="nextPage">Next Page</button>
+<span id="nextPageNumber" class="d-none">{{movies.nextPage}}</span>
+{{/if}}
+
+
+<script type="module">
+  const prevPageNumber = document.getElementById('prevPageNumber')
+  const nextPageNumber = document.getElementById('nextPageNumber')
+  let PPNumber;
+  let NPNumber;
+  prevPageNumber ? PPNumber = prevPageNumber.textContent : null;
+  nextPageNumber ? NPNumber = nextPageNumber.textContent : null;
+  const nextPage = document.getElementById('nextPage');
+  nextPage.addEventListener('click', () => {
+    window.location.href = `${NPNumber}`
+  })
+  const prevPage = document.getElementById('prevPage');
+  prevPage.addEventListener('click', () => {
+    window.location.href = `${PPNumber}`
+  })
+</script>
