@@ -3,7 +3,10 @@
 
 
   {{#each movies.docs}}
-  <div class="card bg-dark text-light" style="width: 18rem;">
+  <div class="card bg-dark text-light " style="width: 18rem;">
+    <div class="card-header">
+      {{_id}}
+    </div>
     <img src="{{poster}}" class="card-img-top" alt="Poster of the film {{title}}">
     <div class="card-body">
       <h5 class="card-title">{{title}}</h5>
@@ -15,7 +18,7 @@
       {{/each}}
     </ul>
     <div class="card-body  align-self-stretch">
-      <a href="" class="card-link align-self-end">Ver más</a>
+      <button class="card-link align-self-end" id="{{_id}}">Ver más</button>
     </div>
   </div>
   {{/each}}
@@ -27,22 +30,45 @@
 {{#if movies.hasNextPage}}
 <button type="button" class="btn btn-primary mt-5 mb-5" id="nextPage">Next Page</button>
 <span id="nextPageNumber" class="d-none">{{movies.nextPage}}</span>
+<span id="currentPage" class="d-none">{{movies.page}}</span>
 {{/if}}
 
 
 <script type="module">
+  //** PREV NEXT PAGES
   const prevPageNumber = document.getElementById('prevPageNumber')
   const nextPageNumber = document.getElementById('nextPageNumber')
   let PPNumber;
   let NPNumber;
+
   prevPageNumber ? PPNumber = prevPageNumber.textContent : null;
   nextPageNumber ? NPNumber = nextPageNumber.textContent : null;
-  const nextPage = document.getElementById('nextPage');
-  nextPage.addEventListener('click', () => {
-    window.location.href = `${NPNumber}`
+
+  if (document.getElementById('nextPage')) {
+    const nextPage = document.getElementById('nextPage');
+    nextPage.addEventListener('click', () => {
+      window.location.href = `${NPNumber}`
+    })
+  }
+  if (document.getElementById('prevPage')) {
+    const prevPage = document.getElementById('prevPage');
+    prevPage.addEventListener('click', () => {
+      window.location.href = `${PPNumber}`
+    })
+  }
+
+  //* VER MAS button
+  const verMas = document.querySelectorAll('.card-link');
+  console.log(verMas)
+  verMas.forEach((element) => {
+    element.addEventListener('click', () => {
+      window.location.href = `/mov/one/${element.id}`
+    })
   })
-  const prevPage = document.getElementById('prevPage');
-  prevPage.addEventListener('click', () => {
-    window.location.href = `${PPNumber}`
-  })
+
+  const currentPage = document.getElementById('currentPage')
+  const pageJSON = JSON.stringify(currentPage.textContent)
+  localStorage.setItem("currentPage", pageJSON)
+
+
 </script>

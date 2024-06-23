@@ -1,0 +1,31 @@
+<div>
+  <h1>{{movie.title}}<span>({{movie.year}})</span></h1>
+  <p>{{movie.runtime}}min</p>
+  <span>
+    {{#each movie.genres }}
+    {{this}},
+    {{/each}}
+  </span>
+</div>
+<img src="{{movie.poster}}">
+<p>{{movie.fullplot}}</p>
+<h2>Protagonistas:</h2>
+<p>
+  {{#each movie.cast}}
+  {{this}},
+  {{/each}}
+</p>
+<h2>Director:</h2>
+<p>{{movie.directors}}</p>
+<button type="button" class="btn btn-primary mt-5 mb-5" id="back">Volver</button>
+
+<script type="module">
+
+  const prevPageJSON = localStorage.getItem('currentPage');
+  const prevPage = JSON.parse(prevPageJSON);
+
+  const button = document.getElementById('back');
+  button.addEventListener('click', () => {
+    window.location.href = `/mov/${prevPage}`;
+  })
+</script>
