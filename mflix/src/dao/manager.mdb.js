@@ -1,41 +1,22 @@
-class CollectionManager {
-    constructor() {
-    }
+import model from '../dao/models/movies.model.js';
 
-    getAll = async (limit) => {
-        try {
-        } catch (err) {
-            return err.message;
-        };
-    };
+class MovieManager {
+	constructor() {}
 
-    add = async (newData) => {
-        try {
-        } catch (err) {
-            return err.message;
-        };
-    };
-
-    getById = async (id) => {
-        try {
-        } catch (err) {
-            return err.message;
-        };
-    };
-
-    update = async (id, updProd) => {
-        try {
-        } catch (err) {
-            return err.message;
-        };
-    };
-
-    delete = async (idDelete) => {
-        try {
-        } catch (err) {
-            return err.message;
-        };
-    };
+	async getCountries() {
+		try {
+			const countries = await model.find().limit(16000).lean();
+			const array = [];
+			countries.forEach((movie) => {
+				array.push(Object.values(movie.countries));
+			});
+			const result = array.map((innerArray) => innerArray[0]);
+			const newArr = [...new Set(result)];
+			return newArr;
+		} catch (err) {
+			return err.message;
+		}
+	}
 }
 
-export default CollectionManager;
+export default MovieManager;

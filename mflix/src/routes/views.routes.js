@@ -1,27 +1,54 @@
 import { Router } from 'express';
-import model from '../dao/models/movies.model.js';
+import moviesModel from '../dao/models/movies.model.js';
+import MovieManager from '../dao/manager.mdb.js';
+import countriesModel from '../dao/models/countries.model.js';
+import fs from 'fs';
+import config from '../config.js';
 const router = Router();
+const manager = new MovieManager();
 
-router.get('/mov/:page', async (req, res) => {
-	console.log('what!');
-	const page = req.params.page;
+router.get('/mov', async (req, res) => {
+	let currentPage;
+	if (req.query) {
+		currentPage = req.query;
+	} else {
+		currentPage = '1';
+	}
 	try {
-		const data = await model.paginate({}, { limit: 8, lean: true, page: +page });
-		console.log(data);
-		res.render('movies', { movies: data });
+		const countries = await countriesModel.findOne({}).lean();
+		const data = await moviesModel.paginate({}, { limit: 8, lean: true, page: +currentPage.page });
+		res.render('movies', { movies: data, countries: countries });
 	} catch (err) {
-		throw new Error(err, 'wata fuck');
+		throw new Error(err);
 	}
 });
 
 router.get('/mov/one/:movid', async (req, res) => {
-	console.log('ONEONE ONE!!!');
 	try {
-		const data = await model.findOne({ _id: req.params.movid }).lean();
-		console.log(data);
-		res.render('movie', { movie: data });
+		const data = await moviesModel.findOne({ _id: req.params.movid }).lean();
+		const countries = await manager.getCountries();
+		res.render('movie', { movie: data, countries: countries });
 	} catch (err) {
-		throw new Error(err, 'wata fuck');
+		throw new Error(err);
+	}
+});
+
+router.get('/mov/country', async (req, res) => {
+	console.log('by country');
+	let currentPage;
+	const { country, page } = req.query;
+	if (page) {
+		currentPage = +page;
+	} else {
+		currentPage = '1';
+	}
+	console.log(country, currentPage);
+
+	try {
+		const byCountry = await moviesModel.paginate({ countries: country }, { limit: 8, lean: true, page: +currentPage });
+		res.render('movies', { movies: byCountry });
+	} catch (error) {
+		throw new Error(err);
 	}
 });
 

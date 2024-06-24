@@ -1,23 +1,26 @@
 <div>
   <h1>{{movie.title}}<span>({{movie.year}})</span></h1>
+  <h3>{{movie.countries}} (Idioma: {{movie.languages}})</h3>
+  <h4>{{movie.tomatoes.production}}</h4>
   <p>{{movie.runtime}}min</p>
   <span>
-    {{#each movie.genres }}
-    {{this}},
-    {{/each}}
+    {{movie.genres }}
+
   </span>
 </div>
 <img src="{{movie.poster}}">
 <p>{{movie.fullplot}}</p>
 <h2>Protagonistas:</h2>
-<p>
-  {{#each movie.cast}}
-  {{this}},
-  {{/each}}
-</p>
+<p>{{movie.cast}}</p>
 <h2>Director:</h2>
-<p>{{movie.directors}}</p>
+<p>{{movie.directors}} </p>
+<h2>Escritores:</h2>
+<p>{{movie.writers}}</p>
+<h3>Premios:</h3>
+<p>{{movie.awards.text}}</p>
 <button type="button" class="btn btn-primary mt-5 mb-5" id="back">Volver</button>
+
+
 
 <script type="module">
 
@@ -26,6 +29,6 @@
 
   const button = document.getElementById('back');
   button.addEventListener('click', () => {
-    window.location.href = `/mov/${prevPage}`;
+    window.location.href = `/mov?page=${prevPage}`;
   })
 </script>

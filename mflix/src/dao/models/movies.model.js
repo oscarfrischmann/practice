@@ -28,7 +28,7 @@ const schema = new mongoose.Schema({
 		votes: { type: Number },
 		id: { type: Number },
 	},
-	countries: { type: [String] },
+	countries: { type: [String], index: true },
 	type: { type: String },
 	tomatoes: {
 		viewer: {

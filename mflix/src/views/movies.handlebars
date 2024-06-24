@@ -1,24 +1,27 @@
 <h2>Movie List</h2>
+<div class=" container-fluid mb-5">
+  <select class="form-select-sm" aria-label="Default select example" id="select">
+    <option selected>Filtrar</option>
+    {{#each countries.countries}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+</div>
 <div class="movies d-flex flex-wrap gap-5  justify-content-center">
-
-
   {{#each movies.docs}}
   <div class="card bg-dark text-light " style="width: 18rem;">
-    <div class="card-header">
-      {{_id}}
-    </div>
     <img src="{{poster}}" class="card-img-top" alt="Poster of the film {{title}}">
     <div class="card-body">
       <h5 class="card-title">{{title}}</h5>
       <p class="card-text">{{plot}}</p>
     </div>
-    <ul class="list-group list-group-flush">
+    {{!-- <ul class="list-group list-group-flush">
       {{#each genres}}
       <li class="list-group-item">{{this}}</li>
       {{/each}}
-    </ul>
+    </ul> --}}
     <div class="card-body  align-self-stretch">
-      <button class="card-link align-self-end" id="{{_id}}">Ver más</button>
+      <button class="card-link align-self-end btn btn-primary" id="{{_id}}">Ver más</button>
     </div>
   </div>
   {{/each}}
@@ -47,19 +50,18 @@
   if (document.getElementById('nextPage')) {
     const nextPage = document.getElementById('nextPage');
     nextPage.addEventListener('click', () => {
-      window.location.href = `${NPNumber}`
+      window.location.href = `/mov?page=${NPNumber}`
     })
   }
   if (document.getElementById('prevPage')) {
     const prevPage = document.getElementById('prevPage');
     prevPage.addEventListener('click', () => {
-      window.location.href = `${PPNumber}`
+      window.location.href = `/mov?page=${PPNumber}`
     })
   }
 
   //* VER MAS button
   const verMas = document.querySelectorAll('.card-link');
-  console.log(verMas)
   verMas.forEach((element) => {
     element.addEventListener('click', () => {
       window.location.href = `/mov/one/${element.id}`
@@ -67,8 +69,17 @@
   })
 
   const currentPage = document.getElementById('currentPage')
-  const pageJSON = JSON.stringify(currentPage.textContent)
-  localStorage.setItem("currentPage", pageJSON)
+  if (currentPage) {
+    const pageJSON = JSON.stringify(currentPage.textContent)
+    localStorage.setItem("currentPage", pageJSON)
+  }
 
+  //* SELECT
+  const select = document.getElementById('select');
+  select.addEventListener('change', () => {
+    const selectedOption = select.options[select.selectedIndex].value;
+    window.location.href = `/mov/country?country=${selectedOption}&?page=${currentPage.textContent}`
+
+  })
 
 </script>
