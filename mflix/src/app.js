@@ -1,6 +1,7 @@
 import express, { urlencoded } from 'express';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import FileStore from 'session-file-store';
 
 // import sessionRouter from './routes/sessions.routes.js';
 // import userRouter from './routes/users.routes.js';
@@ -12,6 +13,7 @@ import moviesRoutes from './routes/movies.routes.js';
 import config from './config.js';
 
 const app = express();
+const fileStorage = FileStore(session);
 const expressServer = app.listen(config.PORT, async () => {
 	await mongoose.connect(config.ATLAS_URI);
 	console.log(`App activa en puerto ${config.PORT} conectada a DB`);
@@ -21,7 +23,14 @@ const expressServer = app.listen(config.PORT, async () => {
 
 	app.use(express.json());
 	app.use(urlencoded({ extended: true }));
-	app.use(session({ secret: config.SECRET, resave: true, saveUninitialized: true }));
+	app.use(
+		session({
+			store: new fileStorage({ path: './sessions', ttl: 100, retries: 0 }),
+			secret: config.SECRET,
+			resave: true,
+			saveUninitialized: true,
+		})
+	);
 	// app.use('/sessions', sessionRouter);
 	app.use('/static', express.static(`${config.DIRNAME}/public`));
 
