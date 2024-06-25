@@ -4,8 +4,17 @@ import MovieManager from '../dao/manager.mdb.js';
 import countriesModel from '../dao/models/countries.model.js';
 import fs from 'fs';
 import config from '../config.js';
+
 const router = Router();
 const manager = new MovieManager();
+
+router.get('/', async (req, res) => {
+	try {
+		res.render('login', { origin: 'login' });
+	} catch (err) {
+		throw new Error(err);
+	}
+});
 
 router.get('/mov', async (req, res) => {
 	let currentPage;
