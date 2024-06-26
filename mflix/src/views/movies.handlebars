@@ -1,4 +1,7 @@
 <h2>Movie List</h2>
+<div class="container-fluid d-flex justify-content-end">
+  <button type="button" class="btn btn-outline-danger" id="logOutButton">Log out</button>
+</div>
 <div class=" container-fluid mb-5">
   <select class="form-select-sm" aria-label="Default select example" id="select">
     <option selected>Filtrar</option>
@@ -82,4 +85,9 @@
 
   })
 
+  // LOG OUT
+  const logOutButton = document.getElementById('logOutButton');
+  logOutButton.addEventListener('click', (req, res) => {
+    window.location.href = '/logout'
+  })
 </script>
