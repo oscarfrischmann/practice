@@ -8,45 +8,45 @@
   <div class="container mb-5">
     <select class="form-select-sm" aria-label="Default select example" id="select">
       <option selected>Filtrar por pais</option>
-      {{#each countries.countries}}
-        <option value="{{this}}">{{this}}</option>
+      {{#each countries}}
+      <option value="{{this}}">{{this}}</option>
       {{/each}}
     </select>
   </div>
   <div class="movies d-flex flex-wrap gap-5 justify-content-center">
     {{#each movies.docs}}
-      <div class="card bg-dark text-light" style="width: 18rem;">
-        <img src="{{poster}}" class="card-img-top" alt="Poster of the film {{title}}" style="height: 60%;" />
-        <div class="card-body">
-          <h5 class="card-title">{{title}}</h5>
-          <p class="card-text">{{plot}}</p>
-        </div>
-        {{!-- <ul class="list-group list-group-flush">
+    <div class="card bg-dark text-light" style="width: 18rem;">
+      <img src="{{poster}}" class="card-img-top" alt="Poster of the film {{title}}" style="height: 60%;" />
+      <div class="card-body">
+        <h5 class="card-title">{{title}}</h5>
+        <p class="card-text">{{plot}}</p>
+      </div>
+      {{!-- <ul class="list-group list-group-flush">
         {{#each genres}}
         <li class="list-group-item">{{this}}</li>
         {{/each}}
       </ul> --}}
 
-        <div class="card-body align-self-end position-r ">
-          <button class="card-link align-self-end btn btn-primary position-a text-nowrap" id="{{_id}}">Ver más</button>
-        </div>
+      <div class="card-body align-self-end position-r ">
+        <button class="card-link align-self-end btn btn-primary position-a text-nowrap" id="{{_id}}">Ver más</button>
       </div>
+    </div>
     {{/each}}
   </div>
   <div class="container d-flex flex-row" style="width: fit-content; text-wrap: nowrap;">
     {{#if movies.hasPrevPage}}
-      <div class="container ">
-        <button type="button" class="btn btn-primary ml-5 mt-5 mb-5" id="prevPage">Prev Page</button>
-        <span id="prevPageNumber" class="d-none">{{movies.prevPage}}</span>
-      </div>
+    <div class="container ">
+      <button type="button" class="btn btn-primary ml-5 mt-5 mb-5" id="prevPage">Prev Page</button>
+      <span id="prevPageNumber" class="d-none">{{movies.prevPage}}</span>
+    </div>
     {{/if}}
     {{#if movies.hasNextPage}}
-      <div class="container">
-        <button type="button" class="btn btn-primary mt-5 mb-5" id="nextPage">Next
-          Page</button>
-        <span id="nextPageNumber" class="d-none">{{movies.nextPage}}</span>
-        <span id="currentPage" class="d-none">{{movies.page}}</span>
-      </div>
+    <div class="container">
+      <button type="button" class="btn btn-primary mt-5 mb-5" id="nextPage">Next
+        Page</button>
+      <span id="nextPageNumber" class="d-none">{{movies.nextPage}}</span>
+      <span id="currentPage" class="d-none">{{movies.page}}</span>
+    </div>
     {{/if}}
   </div>
 
@@ -87,7 +87,7 @@
     const selectedOption = select.options[select.selectedIndex].value;
     JSON.stringify(selectedOption);
     localStorage.setItem('country', selectedOption)
-    window.location.href = `/mov/country?country=${selectedOption}&?page=1`
+    window.location.href = `/mov/country?country=${selectedOption}&page=1`
   })
   // LOG OUT 
   const logOutButton = document.getElementById('logOutButton');
