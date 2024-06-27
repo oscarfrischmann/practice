@@ -1,9 +1,9 @@
 <section class="welcome">
   <h1 class="text-center p-2">MONGOFLIX</h1>
 </section>
-{{!-- <div>
-  <audio controls autoplay src="../static/public/sounds/netflix.mp3"></audio>
-</div> --}}
+<div>
+  <audio preload="auto" src="../static/sounds/netflix.mp3"></audio>
+</div>
 <section class="container justify-content-center d-flex gap-5 m-5 mx-auto">
   <article class="login border border-3 rounded-5 border-info p-4">
     <form action="/api/login" id="login" method="post">
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Ingresar</button>
+        <button type="submit" class="btn btn-primary mb-3" onclick="playSound()">Ingresar</button>
       </div>
     </form>
   </article>
@@ -67,4 +67,12 @@
       })
     }
   }, 1000);
+
+  const audio = document.getElementsByTagName('audio');
+  async function playSound() {
+    await audio[0].play();
+  }
+
+
+
 </script>
