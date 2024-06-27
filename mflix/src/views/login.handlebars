@@ -1,10 +1,10 @@
 <section class="welcome">
-  <h1 class="text-center p-2">MONGOFLIX</h1>
+  <h1 class="text-center ">MONGOFLIX</h1>
 </section>
 <div>
   <audio preload="auto" src="../static/sounds/netflix.mp3"></audio>
 </div>
-<section class="container justify-content-center d-flex gap-5 m-5 mx-auto">
+<section class="container justify-content-center d-flex gap-5 m-5 mx-auto flex-column flex-md-row">
   <article class="login border border-3 rounded-5 border-info p-4">
     <form action="/api/login" id="login" method="post">
       <h3>LOGIN</h3>
@@ -53,7 +53,7 @@
   </article>
 </section>
 {{#if error}}
-<div id="error"></div>
+  <div id="error"></div>
 {{/if}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
