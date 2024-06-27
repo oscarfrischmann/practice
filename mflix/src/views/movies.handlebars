@@ -1,93 +1,91 @@
 <h2>Movie List</h2>
-<div class="container-fluid d-flex justify-content-end">
+<div class="container-fluid d-flex justify-content-end align-items-center gap-3">
+  <button type="button" class="btn bi bi-person-fill-gear fs-3 text-light"></button>
   <button type="button" class="btn btn-outline-danger" id="logOutButton">Log out</button>
 </div>
-<div class=" container-fluid mb-5">
+
+<div class="container-fluid mb-5">
   <select class="form-select-sm" aria-label="Default select example" id="select">
     <option selected>Filtrar</option>
     {{#each countries.countries}}
-    <option value="{{this}}">{{this}}</option>
+      <option value="{{this}}">{{this}}</option>
     {{/each}}
   </select>
 </div>
-<div class="movies d-flex flex-wrap gap-5  justify-content-center">
+<div class="movies d-flex flex-wrap gap-5 justify-content-center">
   {{#each movies.docs}}
-  <div class="card bg-dark text-light " style="width: 18rem;">
-    <img src="{{poster}}" class="card-img-top" alt="Poster of the film {{title}}">
-    <div class="card-body">
-      <h5 class="card-title">{{title}}</h5>
-      <p class="card-text">{{plot}}</p>
-    </div>
-    {{!-- <ul class="list-group list-group-flush">
+    <div class="card bg-dark text-light" style="width: 18rem;">
+      <img src="{{poster}}" class="card-img-top" alt="Poster of the film {{title}}" style="height: 60%;" />
+      <div class="card-body">
+        <h5 class="card-title">{{title}}</h5>
+        <p class="card-text">{{plot}}</p>
+      </div>
+      {{!-- <ul class="list-group list-group-flush">
       {{#each genres}}
       <li class="list-group-item">{{this}}</li>
       {{/each}}
     </ul> --}}
-    <div class="card-body  align-self-stretch">
-      <button class="card-link align-self-end btn btn-primary" id="{{_id}}">Ver más</button>
+
+      <div class="card-body align-self-end position-r ">
+        <button class="card-link align-self-end btn btn-primary position-a text-nowrap" id="{{_id}}">Ver más</button>
+      </div>
     </div>
-  </div>
   {{/each}}
 </div>
 {{#if movies.hasPrevPage}}
-<button type="button" class="btn btn-primary ml-5 mt-5 mb-5" id="prevPage">Prev Page</button>
-<span id="prevPageNumber" class="d-none">{{movies.prevPage}}</span>
+  <button type="button" class="btn btn-primary ml-5 mt-5 mb-5" id="prevPage">Prev Page</button>
+  <span id="prevPageNumber" class="d-none">{{movies.prevPage}}</span>
 {{/if}}
 {{#if movies.hasNextPage}}
-<button type="button" class="btn btn-primary mt-5 mb-5" id="nextPage">Next Page</button>
-<span id="nextPageNumber" class="d-none">{{movies.nextPage}}</span>
-<span id="currentPage" class="d-none">{{movies.page}}</span>
+  <button type="button" class="btn btn-primary mt-5 mb-5" id="nextPage">Next
+    Page</button>
+  <span id="nextPageNumber" class="d-none">{{movies.nextPage}}</span>
+  <span id="currentPage" class="d-none">{{movies.page}}</span>
 {{/if}}
 
-
 <script type="module">
-  //** PREV NEXT PAGES
-  const prevPageNumber = document.getElementById('prevPageNumber')
-  const nextPageNumber = document.getElementById('nextPageNumber')
+  //** PREV NEXT PAGES 
+  const prevPageNumber = document.getElementById('prevPageNumber');
+  const nextPageNumber = document.getElementById('nextPageNumber');
   let PPNumber;
   let NPNumber;
-
   prevPageNumber ? PPNumber = prevPageNumber.textContent : null;
   nextPageNumber ? NPNumber = nextPageNumber.textContent : null;
-
   if (document.getElementById('nextPage')) {
     const nextPage = document.getElementById('nextPage');
-    nextPage.addEventListener('click', () => {
-      window.location.href = `/mov?page=${NPNumber}`
-    })
-  }
-  if (document.getElementById('prevPage')) {
+    nextPage.addEventListener('click', () => { window.location.href = `/mov?page=${NPNumber}` });
+  } if (document.getElementById('prevPage')) {
     const prevPage = document.getElementById('prevPage');
-    prevPage.addEventListener('click', () => {
-      window.location.href = `/mov?page=${PPNumber}`
-    })
+    prevPage.addEventListener('click', () => { window.location.href = `/mov?page=${PPNumber}` });
   }
-
-  //* VER MAS button
+  //* VER MAS button 
   const verMas = document.querySelectorAll('.card-link');
   verMas.forEach((element) => {
     element.addEventListener('click', () => {
-      window.location.href = `/mov/one/${element.id}`
+      window.location.href =
+        `/mov/one/${element.id}`
     })
-  })
-
-  const currentPage = document.getElementById('currentPage')
+  });
+  const currentPage = document.getElementById('currentPage');
   if (currentPage) {
-    const pageJSON = JSON.stringify(currentPage.textContent)
+    const pageJSON = JSON.stringify(currentPage.textContent);
     localStorage.setItem("currentPage", pageJSON)
-  }
-
-  //* SELECT
+  };
+  //* SELECT 
   const select = document.getElementById('select');
   select.addEventListener('change', () => {
     const selectedOption = select.options[select.selectedIndex].value;
     window.location.href = `/mov/country?country=${selectedOption}&?page=${currentPage.textContent}`
-
   })
-
-  // LOG OUT
+  // LOG OUT 
   const logOutButton = document.getElementById('logOutButton');
   logOutButton.addEventListener('click', (req, res) => {
-    window.location.href = '/logout'
-  })
+    window.location.href =
+      '/logout'
+  });
+
+  //body
+  const body = document.getElementsByTagName('body');
+  console.log(body)
+  body[0].setAttribute("style", "background-color:black;");
 </script>

@@ -18,17 +18,15 @@
 <p>{{movie.writers}}</p>
 <h3>Premios:</h3>
 <p>{{movie.awards.text}}</p>
-<button
-  type="button"
-  class="btn btn-primary mt-5 mb-5"
-  id="back"
->Volver</button>
+<button type="button" class="btn btn-primary mt-5 mb-5" id="back">Volver</button>
 
 <script type="module">
 
   const prevPageJSON = localStorage.getItem('currentPage'); const prevPage =
-  JSON.parse(prevPageJSON); const button = document.getElementById('back');
-  button.addEventListener('click', () => { window.location.href =
-  `/mov?page=${prevPage}`; })
+    JSON.parse(prevPageJSON); const button = document.getElementById('back');
+  button.addEventListener('click', () => {
+    window.location.href =
+    `/mov?page=${prevPage}`;
+  })
 
 </script>

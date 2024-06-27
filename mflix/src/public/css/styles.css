@@ -15,3 +15,13 @@
 ul {
   border: 1px solid;
 }
+
+.position-r {
+  position: relative;
+}
+
+.position-a {
+  position: absolute;
+  right: 20;
+  bottom: 15;
+}
