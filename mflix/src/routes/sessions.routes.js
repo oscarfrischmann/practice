@@ -10,7 +10,6 @@ router.post('/api/login', async (req, res) => {
 	const { user, password } = req.body;
 	try {
 		const match = await manager.findUser({ user: user });
-		console.log(match);
 		if (match && isValidPassword(password, match.password)) {
 			req.session.user = { user: match.user, email: match.email };
 			req.session.save((err) => {
@@ -18,7 +17,6 @@ router.post('/api/login', async (req, res) => {
 				res.redirect('/mov');
 			});
 		} else {
-			console.log('no match');
 			res.redirect(`/?error=true`);
 		}
 	} catch (err) {

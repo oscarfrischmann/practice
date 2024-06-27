@@ -60,9 +60,13 @@
   setTimeout(() => {
     if (document.getElementById('error')) {
       Swal.fire({
-        toast:
-          true, position: "top-end", showConfirmButton: false, timer: 3000,
-        timerProgressBar: true, text: 'Usuario o contraseña erróneas', icon: 'error',
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        text: 'Usuario o contraseña incorrecta',
+        icon: 'error',
         background: 'red', color: 'white'
       })
     }
