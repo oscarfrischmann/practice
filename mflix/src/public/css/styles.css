@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: bebas;
+  src: url(../fonts/bebas/BebasNeue-Regular.ttf);
+}
+
 .poster {
   width: 33%;
 }
@@ -24,4 +29,10 @@ ul {
   position: absolute;
   right: 20;
   bottom: 15;
+}
+
+h1 {
+  font-family: bebas;
+  color: red;
+  font-size: 8rem;
 }
