@@ -40,7 +40,7 @@ router.get('/mov', login, async (req, res) => {
 					countries: {
 						$sortArray: {
 							input: '$countries',
-							sortBy: 1, // Change 'value' to the field you want to sort by and 1 for ascending, -1 for descending
+							sortBy: 1,
 						},
 					},
 				},
@@ -77,8 +77,20 @@ router.get('/mov/country', login, async (req, res) => {
 	}
 
 	try {
+		const countries = await countriesModel.aggregate([
+			{
+				$set: {
+					countries: {
+						$sortArray: {
+							input: '$countries',
+							sortBy: 1,
+						},
+					},
+				},
+			},
+		]);
 		const byCountry = await moviesModel.paginate({ countries: country }, { limit: 8, lean: true, page: +currentPage });
-		res.render('byCountry', { movies: byCountry });
+		res.render('byCountry', { movies: byCountry, countries: countries[0].countries });
 	} catch (error) {
 		throw new Error(err);
 	}

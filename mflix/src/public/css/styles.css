@@ -31,6 +31,12 @@ ul {
   bottom: 15;
 }
 
+.position-a2 {
+  position: absolute;
+  right: 120;
+  bottom: 15;
+}
+
 h1 {
   font-family: bebas;
   color: red;
