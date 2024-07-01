@@ -47,3 +47,8 @@ h1 {
   color: red;
   font-size: 7rem;
 }
+
+.movie-one {
+  background-color: black;
+  color: white;
+}

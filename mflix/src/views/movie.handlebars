@@ -1,26 +1,27 @@
-<section class="container">
+<section class="container-fluid movie-one">
+  <article class="container">
+    <div>
+      <h1>{{movie.title}}<span>({{movie.year}})</span></h1>
+      <h3>{{movie.countries}} (Idioma: {{movie.languages}})</h3>
+      <h4>{{movie.tomatoes.production}}</h4>
+      <p>{{movie.runtime}}min</p>
+      <span>
+        {{movie.genres}}
 
-  <div>
-    <h1>{{movie.title}}<span>({{movie.year}})</span></h1>
-    <h3>{{movie.countries}} (Idioma: {{movie.languages}})</h3>
-    <h4>{{movie.tomatoes.production}}</h4>
-    <p>{{movie.runtime}}min</p>
-    <span>
-      {{movie.genres}}
-
-    </span>
-  </div>
-  <img src="{{movie.poster}}" />
-  <p>{{movie.fullplot}}</p>
-  <h2>Protagonistas:</h2>
-  <p>{{movie.cast}}</p>
-  <h2>Director:</h2>
-  <p>{{movie.directors}} </p>
-  <h2>Escritores:</h2>
-  <p>{{movie.writers}}</p>
-  <h3>Premios:</h3>
-  <p>{{movie.awards.text}}</p>
-  <button type="button" class="btn btn-primary mt-5 mb-5" id="back">Volver</button>
+      </span>
+    </div>
+    <img src="{{movie.poster}}" />
+    <p>{{movie.fullplot}}</p>
+    <h2>Protagonistas:</h2>
+    <p>{{movie.cast}}</p>
+    <h2>Director:</h2>
+    <p>{{movie.directors}} </p>
+    <h2>Escritores:</h2>
+    <p>{{movie.writers}}</p>
+    <h3>Premios:</h3>
+    <p>{{movie.awards.text}}</p>
+    <button type="button" class="btn btn-primary mt-5 mb-5" id="back">Volver</button>
+  </article>
 </section>
 
 <script type="module">
