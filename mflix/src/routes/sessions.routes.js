@@ -2,8 +2,10 @@ import { Router } from 'express';
 import config from '../config.js';
 import Manager from '../dao/manager.mdb.js';
 import { loginAuth, isValidPassword, createHash } from '../utils.js';
+import initAuthStrategies from '../auth/passport.strategies.js';
 const router = Router();
 const manager = new Manager();
+// initAuthStrategies();
 
 router.post('/api/login', async (req, res) => {
 	const { user, password } = req.body;

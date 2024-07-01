@@ -1,12 +1,13 @@
 import express, { urlencoded } from 'express';
-import cookieParser from 'cookie-parser';
+import mongoose from 'mongoose';
+import handlebars from 'express-handlebars';
 import session from 'express-session';
 import FileStore from 'session-file-store';
+import cookieParser from 'cookie-parser';
+import passport from 'passport';
 
 import sessionRouter from './routes/sessions.routes.js';
 // import userRouter from './routes/users.routes.js';
-import mongoose from 'mongoose';
-import handlebars from 'express-handlebars';
 import initSocket from './sockets.js';
 import viewsRouter from '../src/routes/views.routes.js';
 import moviesRoutes from './routes/movies.routes.js';
@@ -31,6 +32,8 @@ const expressServer = app.listen(config.PORT, async () => {
 			saveUninitialized: true,
 		})
 	);
+	app.use(passport.initialize());
+	app.use(passport.session());
 	// app.use('/sessions', sessionRouter);
 	app.use('/static', express.static(`${config.DIRNAME}/public`));
 
