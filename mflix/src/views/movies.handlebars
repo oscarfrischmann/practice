@@ -55,6 +55,9 @@
 </section>
 
 <script type="module">
+  if (localStorage.getItem('country')) {
+    localStorage.removeItem('country')
+  };
   //** PREV NEXT PAGES 
   const prevPageNumber = document.getElementById('prevPageNumber');
   const nextPageNumber = document.getElementById('nextPageNumber');
