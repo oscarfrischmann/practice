@@ -8,10 +8,10 @@ const manager = new UsersManager();
 
 const initAuthStrategies = () => {
 	passport.use(
-		'login',
+		'local',
 		new localStrategy({ passReqToCallback: true, usernameField: 'user' }, async (req, username, password, done) => {
 			try {
-				const foundUser = await manager.findUser({ email: username });
+				const foundUser = await manager.findUser({ user: username });
 
 				if (foundUser && isValidPassword(password, foundUser.password)) {
 					const { password, ...filteredFoundUser } = foundUser;
@@ -32,4 +32,4 @@ const initAuthStrategies = () => {
 	});
 };
 
-export default localStrategy;
+export default initAuthStrategies;

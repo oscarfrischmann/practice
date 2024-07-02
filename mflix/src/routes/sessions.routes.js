@@ -5,17 +5,17 @@ import config from '../config.js';
 import Manager from '../dao/manager.mdb.js';
 import { loginAuth, isValidPassword, createHash, verifyRequiredBody } from '../utils.js';
 import initAuthStrategies from '../auth/passport.strategies.js';
-import localStrategy from '../auth/passport.strategies.js';
+// import localStrategy from '../auth/passport.strategies.js';
 
 const router = Router();
 const manager = new Manager();
-initAuthStrategies(localStrategy);
+initAuthStrategies();
 
 //PASSPORT LOCAL
 router.post(
 	'/pplogin',
-	verifyRequiredBody(['email', 'password']),
-	passport.authenticate('login', { failureRedirect: `/login?error=${encodeURI('Usuario o clave no válidos')}` }),
+	verifyRequiredBody(['user', 'password']),
+	passport.authenticate('local', { failureRedirect: `/?error=${encodeURI('Usuario o clave no válidos')}` }),
 	async (req, res) => {
 		try {
 			// Passport inyecta los datos del done en req.user
@@ -30,14 +30,15 @@ router.post(
 		}
 	}
 );
-//PASSPORT LOCAL
+// fin PASSPORT LOCAL
 
-router.post('/api/login', async (req, res) => {
+router.post('/api/login', verifyRequiredBody(['user', 'password']), async (req, res) => {
 	const { user, password } = req.body;
 	try {
 		const match = await manager.findUser({ user: user });
 		if (match && isValidPassword(password, match.password)) {
-			req.session.user = { user: match.user, email: match.email };
+			const { password, ...filteredUser } = match;
+			req.session.user = filteredUser;
 			req.session.save((err) => {
 				if (err) return res.status(500).send({ origin: config.SERVER, payload: null, error: err.message });
 				res.redirect('/mov');
