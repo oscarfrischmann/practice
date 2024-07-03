@@ -65,6 +65,7 @@
     let NPNumber;
     let country = localStorage.getItem('country');
 
+
     prevPageNumber ? PPNumber = prevPageNumber.textContent : null;
     nextPageNumber ? NPNumber = nextPageNumber.textContent : null;
     if (document.getElementById('nextPage')) {
@@ -92,6 +93,7 @@
     const select = document.getElementById('select');
     select.addEventListener('change', () => {
         const selectedOption = select.options[select.selectedIndex].value;
+        localStorage.setItem("country", selectedOption)
         window.location.href = `/mov/country?country=${selectedOption}&page=1`
     })
     // LOG OUT 
