@@ -75,7 +75,6 @@ router.get('/mov/country', login, async (req, res) => {
 	} else {
 		currentPage = '1';
 	}
-
 	try {
 		const countries = await countriesModel.aggregate([
 			{
@@ -90,7 +89,7 @@ router.get('/mov/country', login, async (req, res) => {
 			},
 		]);
 		const byCountry = await moviesModel.paginate({ countries: country }, { limit: 8, lean: true, page: +currentPage });
-		res.render('byCountry', { movies: byCountry, countries: countries[0].countries });
+		res.render('bycountry', { movies: byCountry, countries: countries[0].countries });
 	} catch (error) {
 		throw new Error(err);
 	}
