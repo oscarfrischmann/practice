@@ -14,7 +14,7 @@ const login = async (req, res, next) => {
 	}
 };
 router.get('/', async (req, res) => {
-	console.log(req.session.user);
+	console.log(req.session.user, 'req.session.user');
 	try {
 		if (req.query.error) {
 			res.render('login', { origin: 'login', error: true });
